@@ -38,7 +38,7 @@ i18n.configure({
 });
 
 //init i18n after cookie-parser
-app.use(i18n.init);
+// app.use(i18n.init);
 console.log("--- ",i18n.__('hello'));
 
 
