@@ -18,17 +18,9 @@ app.use(
         }
     )
 );
-
 app.use(
     bodyParser.json()
 );
-
-
-
-//cors
-
-//rutas
-app.use('/api', user_routes);
 
 //Internacionalization
 i18n.configure({
@@ -36,10 +28,14 @@ i18n.configure({
     directory: __dirname + '/locales',
     defaultLocale: 'es'
 });
+app.use(i18n.init);
 
-//init i18n after cookie-parser
-// app.use(i18n.init);
-console.log("--- ",i18n.__('hello'));
+
+
+//cors
+
+//rutas
+app.use('/api', user_routes);
 
 
 //exportar

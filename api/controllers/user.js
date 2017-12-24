@@ -8,7 +8,7 @@ var i18n = require('i18n');
 function home (req, res){
     res.status(200)
         .send({
-            message: i18n.__('hello')
+            message: res.__('hello')
         });
 }
 
@@ -64,7 +64,7 @@ function saveUser (req, res){
     }else{
         return res.status(200)
         .send({
-            message: i18n.__('need.all.data')
+            message: res.__('need.all.data')
         });
     }
 
