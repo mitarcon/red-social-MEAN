@@ -6,6 +6,7 @@ var i18n = require('i18n');
 
 
 function home (req, res){
+    // i18n.setLocale(res, 'en');
     res.status(200)
         .send({
             message: res.__('hello')

@@ -1,3 +1,6 @@
 {
-    "hello": "Mitchell es en ingles"
+    "hello": "Message in english",
+    "need.all.data": "Need more data about the user",
+    "error.save.user": "Error - when save the user",
+    "error.add.user": "Error - can't save the user"
 }

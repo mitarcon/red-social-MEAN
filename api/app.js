@@ -23,6 +23,7 @@ app.use(
 );
 
 //Internacionalization
+// https://github.com/mashpie/i18n-node
 i18n.configure({
     locales:['es', 'en'],
     directory: __dirname + '/locales',
