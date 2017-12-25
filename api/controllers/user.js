@@ -2,6 +2,7 @@
 
 var User = require('../model/user');
 var bcrypt = require('bcrypt-nodejs');
+var jwtService = require('../services/jwt');
 // var i18n = require('i18n');
 
 
@@ -119,10 +120,17 @@ function loginUser(req, res){
                 if(check){
                     user.password = undefined;
                     
-                    return res.status(200)
-                    .send({
-                        user: user
-                    });
+                    if(params.needToken){
+                        return res.status(200)
+                        .send({
+                            token: jwtService.createToken(user)
+                        });
+                    }else{
+                        return res.status(200)
+                        .send({
+                            user: user
+                        });
+                    }
                 }else{
                     return res.status(500)
                     .send({
