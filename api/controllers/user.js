@@ -2,13 +2,15 @@
 
 var User = require('../model/user');
 var bcrypt = require('bcrypt-nodejs');
+// var i18n = require('i18n');
 
 
 function home (req, res){
+    // i18n.setLocale(res, 'en');
     res.status(200)
-        .send({
-            message: 'Get de usuario'
-        });
+    .send({
+        message: res.__('hello')
+    });
 }
 
 function saveUser (req, res){
@@ -34,7 +36,7 @@ function saveUser (req, res){
             if(err){
                 return res.status(500)
                 .send({
-                    message: 'Error al guardar el usuario'
+                    message: res.__('error.save.user')
                 });
             }
 
@@ -43,7 +45,7 @@ function saveUser (req, res){
                 if(err){
                     return res.status(500)
                     .send({
-                        message: 'Error al guardar el usuario'
+                        message: res.__('error.save.user')
                     });
                 }
                 if(userStored){
@@ -54,7 +56,7 @@ function saveUser (req, res){
                 }else{
                     return res.status(404)
                     .send({
-                        message: 'No se logro registrar el usuario'
+                        message: res.__('error.add.user')
                     });
                 }
             });
@@ -63,7 +65,7 @@ function saveUser (req, res){
     }else{
         return res.status(200)
         .send({
-            message: 'Enviar todos los datos necesarios'
+            message: res.__('need.all.data')
         });
     }
 

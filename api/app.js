@@ -2,6 +2,8 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var i18n = require('i18n');
+
 
 var app = express();
 
@@ -16,17 +18,26 @@ app.use(
         }
     )
 );
-
 app.use(
     bodyParser.json()
 );
 
+//Internacionalization
+// https://github.com/mashpie/i18n-node
+i18n.configure({
+    locales:['es', 'en'],
+    directory: __dirname + '/locales',
+    defaultLocale: 'es'
+});
+app.use(i18n.init);
+
+
 
 //cors
 
-
 //rutas
 app.use('/api', user_routes);
+
 
 //exportar
 module.exports = app;
