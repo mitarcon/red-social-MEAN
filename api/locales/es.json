@@ -1,16 +1,24 @@
 {
-    "hello": "Mitchell es en español",
-    "need.all.data": "Enviar todos los datos necesarios",
-    "error.save.user": "Error al guardar el usuario",
-    "error.add.user": "No se logro registrar el usuario",
-    "error.user.exist": "El usuario ya existe",
-    "error.user.dont.exist": "El usuario no existe",
-    "error.find.user": "Error al buscar usuario",
-    "error.dont.login": "Datos invalidos",
-    "error.bcrypt": "Error con la contraseña",
-    "error.header.doesnt.have.authentication": "La petición no tiene la cabecera de autenticación",
-    "error.token.isnt.valid": "Token no es válido",
-    "exception.token.expiration": "El token de autenticación ha expirado",
-    "error.param.mistake": "Parametros incorrectos",
-    "error.interval.server": "Error interno en el servidor"
+	"hello": "Mitchell es en español",
+	"need.all.data": "Enviar todos los datos necesarios",
+	"error.save.user": "Error al guardar el usuario",
+	"error.add.user": "No se logro registrar el usuario",
+	"error.user.exist": "El usuario ya existe",
+	"error.user.dont.exist": "El usuario no existe",
+	"%s error.find.user": {
+		"one": "Error al buscar el usuario",
+		"other": "Error al buscar los usuarios"
+	},
+	"error.dont.login": "Datos invalidos",
+	"error.bcrypt": "Error con la contraseña",
+	"error.header.doesnt.have.authentication": "La petición no tiene la cabecera de autenticación",
+	"error.token.isnt.valid": "Token no es válido",
+	"exception.token.expiration": "El token de autenticación ha expirado",
+	"error.param.mistake": "Parametros incorrectos",
+	"error.interval.server": "Error interno en el servidor",
+	"dont.exist.users": "No existen usuarios",
+	"error.find.user": {
+		"one": "error.find.user",
+		"other": "error.find.user"
+	}
 }

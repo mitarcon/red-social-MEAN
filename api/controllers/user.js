@@ -3,6 +3,7 @@
 var User = require('../model/user');
 var bcrypt = require('bcrypt-nodejs');
 var jwtService = require('../services/jwt');
+var mongoosePaginate = require('mongoose-pagination');
 // var i18n = require('i18n');
 
 //Metodo de prueba
@@ -105,7 +106,7 @@ function loginUser(req, res){
         if (err)
             return res.status(500)
             .send({
-                message: res.__('error.find.user')
+                message: res.__n('error.find.user', 1)
             });
         
         if(user){
@@ -177,9 +178,49 @@ function getUser(req, res){
     });
 }
 
+function getUsers(req, res){
+    var identity_user_id = req.user.sub;
+    var page = 1;
+    var pageSize = 5;
+    var query = req.query;
+    
+    var aux = parseInt(query.page);
+    if(query.page && Number.isInteger(aux)){
+        page = aux;
+    }
+    
+    aux = parseInt(query.pageSize);
+    if(query.pageSize && Number.isInteger(aux)){
+        pageSize = aux;
+    }
+
+    User.find().paginate(page, pageSize,
+    (err, users, total) => {
+        if (err)
+            return res.status(500)
+            .send({
+                message: res.__n('error.find.user', 2)
+            });
+
+        if (!users)
+            return res.status(404)
+            .send({
+                message: res.__('dont.exist.users')
+            });
+
+        return res.status(200)
+        .send({
+            users,
+            total,
+            pages: Math.ceil(total/pageSize)
+        });   
+    });
+}
+
 module.exports ={
     home,
     saveUser,
     loginUser,
-    getUser
+    getUser,
+    getUsers
 };
