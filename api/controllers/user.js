@@ -117,6 +117,8 @@ function loginUser(req, res){
                     });
 
                 if(check){
+                    user.password = undefined;
+                    
                     return res.status(200)
                     .send({
                         user: user
