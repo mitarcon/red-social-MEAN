@@ -2,5 +2,6 @@
     "hello": "Mitchell es en español",
     "need.all.data": "Enviar todos los datos necesarios",
     "error.save.user": "Error al guardar el usuario",
-    "error.add.user": "No se logro registrar el usuario"
+    "error.add.user": "No se logro registrar el usuario",
+    "error.user.exist": "El usuario ya existe"
 }
