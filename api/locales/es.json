@@ -7,5 +7,8 @@
     "error.user.dont.exist": "El usuario no existe",
     "error.find.user": "Error al buscar usuario",
     "error.dont.login": "Datos invalidos",
-    "error.bcrypt": "Error con la contraseña"
+    "error.bcrypt": "Error con la contraseña",
+    "error.header.doesnt.have.authentication": "La petición no tiene la cabecera de autenticación",
+    "error.token.isnt.valid": "Token no es válido",
+    "exception.token.expiration": "El token de autenticación ha expirado"
 }

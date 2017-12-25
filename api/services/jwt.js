@@ -1,8 +1,8 @@
-'use stric'
+'use strict'
 
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var secret = 'clave_secreta_de_la_aplicacion_red_social_mean';
+var secretKey = require('../util/jwt').secretKey;
 
 
 function createToken (user){
@@ -17,7 +17,7 @@ function createToken (user){
         exp: moment().add(30, 'days').unix()
     };
 
-    return jwt.encode(payload, secret);
+    return jwt.encode(payload, secretKey);
 }
 
 module.exports ={
