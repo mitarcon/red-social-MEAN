@@ -20,7 +20,6 @@ function saveUser (req, res){
         && undefined != params.nick && undefined != params.email
         && undefined != params.password){
         
-        
         var _user = new User();
         _user.name = params.name;
         _user.surname = params.surname;
@@ -91,11 +90,55 @@ function saveUser (req, res){
             message: res.__('need.all.data')
         });
     }
+}
 
+function loginUser(req, res){
+    var params = req.body;
 
+    var _email = params.email;
+    var _password = params.password;
+
+    User.findOne({
+        email: _email
+    }, (err, user) => {
+        if (err)
+            return res.status(500)
+            .send({
+                message: res.__('error.find.user')
+            });
+        
+        if(user){
+            bcrypt.compare(_password, user.password,
+            (err, check) =>{
+                if (err)
+                    return res.status(500)
+                    .send({
+                        message: res.__('error.bcrypt')
+                    });
+
+                if(check){
+                    return res.status(200)
+                    .send({
+                        user: user
+                    });
+                }else{
+                    return res.status(500)
+                    .send({
+                        message: res.__('error.dont.login')
+                    });                    
+                }
+            });
+        }else{
+            return res.status(200)
+            .send({
+                message: res.__('error.user.dont.exist')
+            });
+        }
+    });
 }
 
 module.exports ={
     home,
-    saveUser
+    saveUser,
+    loginUser
 };

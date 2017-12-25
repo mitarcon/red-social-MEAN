@@ -3,5 +3,9 @@
     "need.all.data": "Enviar todos los datos necesarios",
     "error.save.user": "Error al guardar el usuario",
     "error.add.user": "No se logro registrar el usuario",
-    "error.user.exist": "El usuario ya existe"
+    "error.user.exist": "El usuario ya existe",
+    "error.user.dont.exist": "El usuario no existe",
+    "error.find.user": "Error al buscar usuario",
+    "error.dont.login": "Datos invalidos",
+    "error.bcrypt": "Error con la contraseña"
 }
