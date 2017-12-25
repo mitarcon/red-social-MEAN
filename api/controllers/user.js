@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt-nodejs');
 var jwtService = require('../services/jwt');
 // var i18n = require('i18n');
 
-
+//Metodo de prueba
 function home (req, res){
     // i18n.setLocale(res, 'en');
     res.status(200)
@@ -147,8 +147,39 @@ function loginUser(req, res){
     });
 }
 
+function getUser(req, res){
+    var userId = req.params.id;
+    
+    if(!userId)
+        return res.status(200)
+            .send({
+                message: res.__('error.param.mistake')
+            });
+
+    User.findById(userId,
+    (err, user) => {
+        if(err)
+            return res.status(500)
+                .send({
+                    message: res.__('error.interval.server')
+                });
+                
+        if(!user)
+            return res.status(404)
+                .send({
+                    message: res.__('error.user.dont.exist')
+                });
+
+        return res.status(200)
+        .send({
+            user: user
+        });
+    });
+}
+
 module.exports ={
     home,
     saveUser,
-    loginUser
+    loginUser,
+    getUser
 };
