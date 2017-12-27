@@ -5,7 +5,7 @@
 	"error.add.user": "No se logro registrar el usuario",
 	"error.user.exist": "El usuario ya existe",
 	"error.user.dont.exist": "El usuario no existe",
-	"%s error.find.user": {
+	"error.find.user": {
 		"one": "Error al buscar el usuario",
 		"other": "Error al buscar los usuarios"
 	},
@@ -17,8 +17,5 @@
 	"error.param.mistake": "Parametros incorrectos",
 	"error.interval.server": "Error interno en el servidor",
 	"dont.exist.users": "No existen usuarios",
-	"error.find.user": {
-		"one": "error.find.user",
-		"other": "error.find.user"
-	}
+    "error.when.update.user": "No se ha podido actualizar el usuario"
 }

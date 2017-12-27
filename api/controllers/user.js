@@ -217,10 +217,47 @@ function getUsers(req, res){
     });
 }
 
+function updateUser(req, res){
+    var userId = req.params.id;
+    var userUpdate = req.body;
+
+    delete userUpdate.password;
+    
+    if(userId != req.user.sub){
+        return res.status(500)
+        .send({
+            message: res.__n('error.find.user', 1)
+        });        
+    }
+
+    User.findByIdAndUpdate(userId, userUpdate, {new: true},
+    (err, userUpdated) => {
+        if (err)
+            return res.status(500)
+            .send({
+                message: res.__('error.interval.server')
+            });
+        
+        if(!userUpdated)
+             return res.status(500)
+            .send({
+                message: res.__('error.when.update.user')
+            });
+
+        if (userUpdated)
+            return res.status(200)
+            .send({
+                user: userUpdated
+            });
+    });
+
+}
+
 module.exports ={
     home,
     saveUser,
     loginUser,
     getUser,
-    getUsers
+    getUsers,
+    updateUser
 };
