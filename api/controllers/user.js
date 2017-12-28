@@ -292,11 +292,16 @@ function uploadImage(req, res){
         });    
     }
 
+    return res.status(200)
+    .send({
+        message: 'Recibi la imagen'
+    });    
+
 
 }
 
 function removeFileFromPath(filePath){
-    fs.unlink(file_path, (err)=>{
+    fs.unlink(filePath, (err)=>{
         console.log("err ", err);
     });
 }
