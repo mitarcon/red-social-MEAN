@@ -292,10 +292,26 @@ function uploadImage(req, res){
         });    
     }
 
-    return res.status(200)
-    .send({
-        message: 'Recibi la imagen'
-    });    
+    User.findByIdAndUpdate(userId, {image: file_name}, {new: true},
+    (err, userUpdated) => {
+        if (err)
+            return res.status(500)
+            .send({
+                message: res.__('error.interval.server')
+            });
+        
+        if(!userUpdated)
+             return res.status(500)
+            .send({
+                message: res.__('error.when.update.user')
+            });
+
+        if (userUpdated)
+            return res.status(200)
+            .send({
+                user: userUpdated
+            });
+    });
 
 
 }
