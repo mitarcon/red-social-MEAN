@@ -19,5 +19,6 @@
 	"dont.exist.users": "No existen usuarios",
     "error.when.update.user": "No se ha podido actualizar el usuario",
     "error.upload.image": "No se recibio archivo para subir",
-    "error.invalid.format": "Formato invalido de mensaje"
+    "error.invalid.format": "Formato invalido de mensaje",
+    "error.image.doesnt.found": "Imagen no encontrada"
 }

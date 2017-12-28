@@ -9,6 +9,8 @@ var mongoosePaginate = require('mongoose-pagination');
 var fs = require('fs');
 var path = require('path');
 
+var urlUserImg = './uploads/users';
+
 //Metodo de prueba
 function home (req, res){
     // i18n.setLocale(res, 'en');
@@ -266,7 +268,7 @@ function uploadImage(req, res){
     }
 
     var file_path = req.files.image.path;
-
+    console.log("file_path ",file_path);
     if(userId != req.user.sub){
         removeFileFromPath(file_path);
         return res.status(500)
@@ -322,6 +324,21 @@ function removeFileFromPath(filePath){
     });
 }
 
+function getUserImage(req, res){
+    var imageFile = req.params.imageFile;
+    var pathFile = urlUserImg + "/" + imageFile;
+    fs.exists(pathFile,
+    (exist) => {
+        console.log("log ",exist);
+        if(exist)
+            return res.sendFile(path.resolve(pathFile));
+        else
+            return res.status(404).send({
+                message: res.__('error.image.doesnt.found')
+            });
+    });
+}
+
 
 module.exports ={
     home,
@@ -330,5 +347,7 @@ module.exports ={
     getUser,
     getUsers,
     updateUser,
-    uploadImage
+    uploadImage,
+    urlUserImg,
+    getUserImage
 };
