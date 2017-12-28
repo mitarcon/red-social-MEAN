@@ -6,6 +6,9 @@ var jwtService = require('../services/jwt');
 var mongoosePaginate = require('mongoose-pagination');
 // var i18n = require('i18n');
 
+var fs = require('fs');
+var path = require('path');
+
 //Metodo de prueba
 function home (req, res){
     // i18n.setLocale(res, 'en');
@@ -222,7 +225,7 @@ function updateUser(req, res){
     var userUpdate = req.body;
 
     delete userUpdate.password;
-    
+
     if(userId != req.user.sub){
         return res.status(500)
         .send({
@@ -250,8 +253,75 @@ function updateUser(req, res){
                 user: userUpdated
             });
     });
+}
+
+function uploadImage(req, res){
+    var userId = req.params.id;
+
+    if(!req.files){
+        return res.status(500)
+        .send({
+            message: res.__('error.upload.image')
+        });        
+    }
+
+    var file_path = req.files.image.path;
+
+    if(userId != req.user.sub){
+        removeFileFromPath(file_path);
+        return res.status(500)
+        .send({
+            message: res.__n('error.find.user', 1)
+        });        
+    }
+
+    var file_split = file_path.split('\\');
+    var file_name = file_split[2];
+    var ext_split = file_name.split("\.");
+    var file_ext = ext_split[1];
+
+    if(file_ext != 'jpg' &&
+     file_ext != 'png' &&
+     file_ext != 'jpeg' &&
+     file_ext != 'gif'){
+
+        removeFileFromPath(file_path);
+        return res.status(500)
+        .send({
+            message: res.__('error.invalid.format')
+        });    
+    }
+
+    User.findByIdAndUpdate(userId, {image: file_name}, {new: true},
+    (err, userUpdated) => {
+        if (err)
+            return res.status(500)
+            .send({
+                message: res.__('error.interval.server')
+            });
+        
+        if(!userUpdated)
+             return res.status(500)
+            .send({
+                message: res.__('error.when.update.user')
+            });
+
+        if (userUpdated)
+            return res.status(200)
+            .send({
+                user: userUpdated
+            });
+    });
+
 
 }
+
+function removeFileFromPath(filePath){
+    fs.unlink(filePath, (err)=>{
+        console.log("err ", err);
+    });
+}
+
 
 module.exports ={
     home,
@@ -259,5 +329,6 @@ module.exports ={
     loginUser,
     getUser,
     getUsers,
-    updateUser
+    updateUser,
+    uploadImage
 };
