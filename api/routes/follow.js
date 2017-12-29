@@ -11,6 +11,7 @@ var api = express.Router();
 
 api.get('/test', md_auth.ensureAuth, FollowController.test);
 api.post('', md_auth.ensureAuth, FollowController.saveFollow);
+api.delete('/:id', md_auth.ensureAuth, FollowController.deleteFollow)
 
 
 module.exports = api;

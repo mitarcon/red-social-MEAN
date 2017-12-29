@@ -13,7 +13,7 @@ function test(req, res){
     });
 }
 
-function saveFollow (req, res){
+function saveFollow(req, res){
     var params = req.body;
 
     var _follow = new Follow();
@@ -38,8 +38,34 @@ function saveFollow (req, res){
     })
 }
 
+function deleteFollow(req, res){
+    var userId = req.user.sub;
+    var followUserId = req.params.id;
+
+    Follow.findOneAndRemove({
+        user: userId,
+        followed: followUserId
+    }, (err, followDeleted) => {
+        if (err)
+            return res.status(500).send({
+                message: res.__('error.delete.follow')
+            });
+
+        if(!followDeleted)
+            return res.status(404).send({
+                message: res.__('error.delete.follow.dont.find')
+            });
+
+        return res.status(200).send({
+            message: res.__('follow.delete.successful')
+        });
+    });
+
+} 
+
 
 module.exports = {
     test,
-    saveFollow
+    saveFollow,
+    deleteFollow
 };
