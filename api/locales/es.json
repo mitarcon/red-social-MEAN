@@ -28,5 +28,6 @@
     "error.save.follow.dont.find": "Luego de guardar no se obtuvo el objeto guardado",
     "error.delete.follow": "Error al eliminar el seguimiento",
     "error.delete.follow.dont.find": "No se porque no hay elemento borrado",
-    "follow.delete.successful": "Borrado satisfactoriamente"
+    "follow.delete.successful": "Borrado satisfactoriamente",
+    "error.search.follow": "Error al buscar seguidores"
 }

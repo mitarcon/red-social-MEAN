@@ -60,12 +60,50 @@ function deleteFollow(req, res){
             message: res.__('follow.delete.successful')
         });
     });
-
 } 
+
+function getFollowingUser(req, res){
+    var userId = req.params.id;
+
+    var page = 1;
+    var pageSize = 5;
+    var query = req.query;
+    
+    var aux = parseInt(query.page);
+    if(query.page && Number.isInteger(aux)){
+        page = aux;
+    }
+    
+    aux = parseInt(query.pageSize);
+    if(query.pageSize && Number.isInteger(aux)){
+        pageSize = aux;
+    }
+
+    Follow.find({
+        user: userId
+    })
+    .populate('followed')
+    .populate('user', 'nick')
+    .paginate(page, pageSize,
+    (err, follows, total) => {
+        if (err)
+            return res.status(500).send({
+                message: res.__('error.delete.follow')
+            });   
+
+        return res.status(200).send({
+            follows,
+            total,
+            pages: Math.ceil(total/pageSize)
+        });            
+    });
+
+}
 
 
 module.exports = {
     test,
     saveFollow,
-    deleteFollow
+    deleteFollow,
+    getFollowingUser
 };
