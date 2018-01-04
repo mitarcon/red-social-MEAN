@@ -9,6 +9,7 @@ var app = express();
 
 //Rutas
 var user_routes = require('./routes/user');
+var follow_routes = require('./routes/follow');
 
 //middlewares
 app.use(
@@ -36,7 +37,8 @@ app.use(i18n.init);
 //cors
 
 //rutas
-app.use('/api', user_routes);
+app.use('/api/user', user_routes);
+app.use('/api/follow', follow_routes);
 
 
 //exportar

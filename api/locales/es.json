@@ -20,5 +20,14 @@
     "error.when.update.user": "No se ha podido actualizar el usuario",
     "error.upload.image": "No se recibio archivo para subir",
     "error.invalid.format": "Formato invalido de mensaje",
-    "error.image.doesnt.found": "Imagen no encontrada"
+    "error.image.doesnt.found": "Imagen no encontrada",
+
+
+
+    "error.save.follow": "Error al guardar el seguimiento",
+    "error.save.follow.dont.find": "Luego de guardar no se obtuvo el objeto guardado",
+    "error.delete.follow": "Error al eliminar el seguimiento",
+    "error.delete.follow.dont.find": "No se porque no hay elemento borrado",
+    "follow.delete.successful": "Borrado satisfactoriamente",
+    "error.search.follow": "Error al buscar seguidores"
 }
