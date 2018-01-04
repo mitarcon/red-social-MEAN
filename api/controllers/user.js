@@ -176,28 +176,26 @@ function getUser(req, res){
                 .send({
                     message: res.__('error.user.dont.exist')
                 });
-        
+
+        user = user.toObject();
+
         //Retornar si el usuario logeado esta siguiendo al consultado
-        Follow.findOne({
-            followed: userId,
-            user: req.user.sub
-        }).exec(
-        (err, follow) => {
-            if(err)
-                return res.status(500)
-                    .send({
-                        message: res.__('error.interval.server')
-                    });
-            
-            user = user.toObject();
-            user.follow = follow;
+        getFollowBetweenUser(req.user.sub, userId)
+        .then((value) =>{
+            user.following = value.following;
+            user.followed = value.followed;
 
             return res.status(200)
                 .send({
                     user
                 });
-        });
-
+        })
+        .catch((err) => {
+            return res.status(500)
+                .send({
+                    message: res.__('error.interval.server')
+                });
+        })
 
     });
 }
@@ -356,6 +354,33 @@ function getUserImage(req, res){
                 message: res.__('error.image.doesnt.found')
             });
     });
+}
+
+async function getFollowBetweenUser(userIdRegister, userId){
+    var following = await Follow.findOne({
+            user: userIdRegister,
+            followed: userId,
+        }).exec(
+        (err, follow) => {
+            if(err)
+                return handleError(err);
+            return follow;
+        });
+    
+    var followed = await Follow.findOne({
+            user: userId,
+            followed: userIdRegister,
+        }).exec(
+        (err, follow) => {
+            if(err)
+                return handleError(err);
+            return follow;
+        });
+
+    return {
+        following,
+        followed
+    };
 }
 
 
