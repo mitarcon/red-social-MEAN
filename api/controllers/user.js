@@ -1,6 +1,7 @@
 'use strict'
 
 var User = require('../model/user');
+var Follow = require('../model/follow');
 var bcrypt = require('bcrypt-nodejs');
 var jwtService = require('../services/jwt');
 var mongoosePaginate = require('mongoose-pagination');
@@ -175,11 +176,27 @@ function getUser(req, res){
                 .send({
                     message: res.__('error.user.dont.exist')
                 });
+        
+        //Retornar si el usuario logeado esta siguiendo al consultado
+        Follow.findOne({
+            followed: userId,
+            user: req.user.sub
+        }).exec(
+        (err, follow) => {
+            if(err)
+                return res.status(500)
+                    .send({
+                        message: res.__('error.interval.server')
+                    });
 
-        return res.status(200)
-        .send({
-            user: user
+            return res.status(200)
+                .send({
+                    user,
+                    follow
+                });
         });
+
+
     });
 }
 
