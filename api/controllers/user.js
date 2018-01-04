@@ -188,11 +188,13 @@ function getUser(req, res){
                     .send({
                         message: res.__('error.interval.server')
                     });
+            
+            user = user.toObject();
+            user.follow = follow;
 
             return res.status(200)
                 .send({
-                    user,
-                    follow
+                    user
                 });
         });
 

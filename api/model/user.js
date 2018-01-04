@@ -13,4 +13,10 @@ var UserSchema = Schema({
     image: String
 });
 
+//Actualizacion de Schema User para volver objeto
+if (!UserSchema.options.toObject) UserSchema.options.toObject = {};
+UserSchema.options.toObject.transform = function (doc, ret, options) {
+  return ret;
+}
+
 module.exports = mongoose.model('User', UserSchema);
