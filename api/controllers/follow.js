@@ -88,7 +88,44 @@ function getFollowingUser(req, res){
     (err, follows, total) => {
         if (err)
             return res.status(500).send({
-                message: res.__('error.delete.follow')
+                message: res.__('error.search.follow')
+            });   
+
+        return res.status(200).send({
+            follows,
+            total,
+            pages: Math.ceil(total/pageSize)
+        });            
+    });
+
+}
+
+function getFollowingMe(req, res){
+    var page = 1;
+    var pageSize = 5;
+    var userId = req.user.sub;
+    var query = req.query;
+    
+    var aux = parseInt(query.page);
+    if(query.page && Number.isInteger(aux)){
+        page = aux;
+    }
+    
+    aux = parseInt(query.pageSize);
+    if(query.pageSize && Number.isInteger(aux)){
+        pageSize = aux;
+    }
+
+    Follow.find({
+        followed: userId
+    })
+    .populate('followed', 'nick')
+    .populate('user')
+    .paginate(page, pageSize,
+    (err, follows, total) => {
+        if (err)
+            return res.status(500).send({
+                message: res.__('error.search.follow')
             });   
 
         return res.status(200).send({
@@ -105,5 +142,6 @@ module.exports = {
     test,
     saveFollow,
     deleteFollow,
-    getFollowingUser
+    getFollowingUser,
+    getFollowingMe
 };
